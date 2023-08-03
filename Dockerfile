@@ -100,8 +100,8 @@ WORKDIR	"/ffmpeg_sources/ffmpeg"
 RUN	./configure \
 		--prefix="/ffmpeg_build" \
 		--pkg-config-flags="--static" \
-		--extra-cflags="-I/ndi/NDI_SDK_v5_for_Linux/include" \
-		--extra-ldflags="-L/ndi/NDI_SDK_v5_for_Linux/lib/x86_64-linux-gnu" \
+		--extra-cflags="-I/ndi/NDI_SDK_v5_Linux/include" \
+		--extra-ldflags="-L/ndi/NDI_SDK_v5_Linux/lib/x86_64-linux-gnu" \
 		--bindir="/bin" \
 		--enable-gpl \
 		--enable-libass \
@@ -135,7 +135,7 @@ RUN	update-rc.d avahi-daemon defaults
 
 # Cleanup 
 RUN	mv /ffmpeg_sources/ffmpeg/ffmpeg /usr/local/ffmpeg
-RUN	rm /ndi/InstallNDISDK_v3_Linux.sh
+RUN	rm /ndi/NDI_SDK_v5_Linux_x86-64-linux-gnu.tar.gz
 
 
 #For network testing ------ KAOL uncomment to test
