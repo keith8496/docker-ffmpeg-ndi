@@ -122,7 +122,7 @@ RUN	./configure \
 		--enable-libxcb \
 		--disable-decklink
 
-RUN	make
+RUN	make -j
 RUN	make install
 
 
