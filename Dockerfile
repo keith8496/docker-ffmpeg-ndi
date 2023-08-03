@@ -4,7 +4,7 @@ WORKDIR	/
 
 # CleanUp Ubuntu
 RUN	apt-get -yqq update && \
-	apt-get install -yq --no-install-recommends ca-certificates expat libgomp1 curl && \
+	apt-get install -yq --no-install-recommends ca-certificates expat libgomp1 && \
 	apt-get autoremove -y && \
 	apt-get clean -y
 
@@ -32,57 +32,58 @@ ENV	PKG_CONFIG_PATH=/ffmpeg_build/ffmpeg/lib/pkgconfig
 
 # Build dependencies:
 RUN	buildDeps="autoconf \
-	automake \
-	build-essential \
-	cmake \
-	git \
-	libass-dev \
-	libfreetype6-dev \
-	libtheora-dev \
-	libtool \
-	libvorbis-dev \
-	mercurial \
-	pkg-config \
-	texinfo \
-	wget \
-	zlib1g-dev \
-	yasm \
-	libx264-dev \
-	libx265-dev \
-	libvpx-dev \
-	libfdk-aac-dev \
-	libmp3lame-dev \
-	libopus-dev \
-	v4l-utils \
-	v4l2loopback-dkms \
-	libsdl2-dev \
-	libtheora-dev \
-	libtool \
-	libva-dev \
-	libvdpau-dev \
-	libvorbis-dev \
-	libxcb1-dev \
-	libxcb-shm0-dev \
-	libxcb-xfixes0-dev \
-	libopencore-amrnb-dev \
-	libopencore-amrwb-dev \
-	librtmp-dev \
-	curl \
-	bzip2 \
-	libexpat1-dev \
-	g++ \
-	gcc \
-	gperf \
-	libtool \
-	make \
-	nasm \
-	perl \
-	pkg-config \
-	python \
-	avahi-daemon \
-	avahi-utils \
-	libnss-mdns \
-	libssl-dev" && \
+		automake \
+		build-essential \
+		cmake \
+		git \
+		libass-dev \
+		libfreetype6-dev \
+		libtheora-dev \
+		libtool \
+		libvorbis-dev \
+		mercurial \
+		pkg-config \
+		texinfo \
+		wget \
+	 	curl \
+		zlib1g-dev \
+		yasm \
+		libx264-dev \
+		libx265-dev \
+		libvpx-dev \
+		libfdk-aac-dev \
+		libmp3lame-dev \
+		libopus-dev \
+		v4l-utils \
+		v4l2loopback-dkms \
+		libsdl2-dev \
+		libtheora-dev \
+		libtool \
+		libva-dev \
+		libvdpau-dev \
+		libvorbis-dev \
+		libxcb1-dev \
+		libxcb-shm0-dev \
+		libxcb-xfixes0-dev \
+		libopencore-amrnb-dev \
+		libopencore-amrwb-dev \
+		librtmp-dev \
+		curl \
+		bzip2 \
+		libexpat1-dev \
+		g++ \
+		gcc \
+		gperf \
+		libtool \
+		make \
+		nasm \
+		perl \
+		pkg-config \
+		python \
+		avahi-utils \
+		libnss-mdns \
+		libssl-dev \
+	   	nano" && \
 	apt-get -yqq update && \
 	apt-get install -yq --no-install-recommends ${buildDeps}
 
@@ -123,15 +124,15 @@ RUN	./configure \
 		--disable-decklink
 
 RUN	make -j
-RUN	make install
+RUN	make -j install
 
 
 #KAOL Remove restriction in Avahi - put a # in front of rlimit-nproc=3
 #RUN sed -i '/rlimit-nproc/s/^/#/' /etc/avahi/avahi-daemon.conf
 
-#Start Dbus & Avahi to handle mDNS
-RUN	update-rc.d dbus defaults
-RUN	update-rc.d avahi-daemon defaults
+##Start Dbus & Avahi to handle mDNS
+#RUN	update-rc.d dbus defaults
+#RUN	update-rc.d avahi-daemon defaults
 
 # Cleanup 
 RUN	mv /ffmpeg_sources/ffmpeg/ffmpeg /usr/local/ffmpeg
